@@ -281,49 +281,49 @@ Palo 支持 FE 节点的高可用，以及 BE 节点的横向扩展。在单机�
 
 1. FE 高可用及扩展。
 
-   在分布式环境下，FE 分为 Leader，Follower 和 Observer 三种角色。 
+    在分布式环境下，FE 分为 Leader，Follower 和 Observer 三种角色。 
 
-   一个 Leader 和多个 Follower 组成一个选举组，在 Leader 宕机情况下，剩余的 Follower 会选出新的 Leader，保证 FE 的高可用。
+    一个 Leader 和多个 Follower 组成一个选举组，在 Leader 宕机情况下，剩余的 Follower 会选出新的 Leader，保证 FE 的高可用。
 
-   Observer 角色不参与 Leader 的选举，但可以接收所有用户请求，以保证 FE 的扩展性。
+    Observer 角色不参与 Leader 的选举，但可以接收所有用户请求，以保证 FE 的扩展性。
 
-   第一个启动的 FE 自动成为 Leader。在此基础上，可以添加若干 Follower 和 Observer。
+    第一个启动的 FE 自动成为 Leader。在此基础上，可以添加若干 Follower 和 Observer。
 
-   1. 添加 Follower 或 Observer
+    1. 添加 Follower 或 Observer
 
-    使用 mysql-client 连接到已启动的 FE，并执行：
+        使用 mysql-client 连接到已启动的 FE，并执行：
 
-    `ALTER SYSTEM ADD FOLLOWER "host:port";`
+        `ALTER SYSTEM ADD FOLLOWER "host:port";`
 
-    或
+        或
 
-    `ALTER SYSTEM ADD OBSERVER "host:port";`
+        `ALTER SYSTEM ADD OBSERVER "host:port";`
 
-    其中 host 为 Follower 或 Observer 所在节点 ip；port 为其配置文件 fe.conf 中的 edit_log_port。
+        其中 host 为 Follower 或 Observer 所在节点 ip；port 为其配置文件 fe.conf 中的 edit_log_port。
 
-   2. 配置及启动 Follower 或 Observer
+    2. 配置及启动 Follower 或 Observer
 
-    Follower 和 Observer 的配置同 Leader 的配置。
+        Follower 和 Observer 的配置同 Leader 的配置。
 
-    第一次启动时，需执行以下命令：
+        第一次启动时，需执行以下命令：
 
-    `sh bin/start_fe.sh -helper host:port`
+        `sh bin/start_fe.sh -helper host:port`
 
-    其中 host 为 Leader 所在节点 ip；port 为 Leader 的配置文件 fe.conf 中的 edit_log_port。
+        其中 host 为 Leader 所在节点 ip；port 为 Leader 的配置文件 fe.conf 中的 edit_log_port。
 
-    `-helper` 参数仅在 Follower 和 Observer 第一次启动时才需要。再次启动时，直接执行：
+        `-helper` 参数仅在 Follower 和 Observer 第一次启动时才需要。再次启动时，直接执行：
 
-    `sh bin/start_fe.sh`
+        `sh bin/start_fe.sh`
 
-    即可。
+        即可。
 
-   3. 查看 Follower 或 Observer 运行状态
+    3. 查看 Follower 或 Observer 运行状态
 
-    使用 mysql-client 连接到**任一**已启动的 FE，并执行：
+        使用 mysql-client 连接到**任一**已启动的 FE，并执行：
 
-    `SHOW PROC '/frontend';`
+        `SHOW PROC '/frontend';`
 
-    可以查看当前已加入集群的 FE 及其对应角色。
+        可以查看当前已加入集群的 FE 及其对应角色。
 
 2. BE 横向扩展
 
