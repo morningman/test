@@ -88,11 +88,11 @@ JDK：
 
 ### 常见编译问题
 
-1.  执行 `sh build-thirdparty.sh` 报错: source: not found
+1. 执行 `sh build-thirdparty.sh` 报错: source: not found
 
     请使用 /bin/bash 代替 sh 执行脚本。
 
-2.  编译 gperftools
+2. 编译 gperftools
     - 找不到 libunwind
 
         创建到 libunwind.so.x 的软链：
@@ -103,7 +103,7 @@ JDK：
 
         `build-thirdparty.sh`
 
-3.  编译 thrift-0.8.0
+3. 编译 thrift
     - 找不到 libssl 或 libcrypto
 
         创建到系统 libssl.so.x 的软链：
@@ -155,8 +155,17 @@ JDK：
         `sh build-thirdparty.sh`
         
         > 参考：https://github.com/boostorg/fiber/issues/121
+        
+    - syntax error near unexpected token `GLIB,'
+        
+        检查是否安装了 pkg-config，并且版本高于 0.22。
+        
+        如果已经安装，但依然出现此问题，请删除 `thirdparty/src/thrift-0.8.0` 后，重新执行：
+        
+        `sh build-thirdparty.sh`
 
-    - curl libcurl.so: undefined reference to `SSL_get0_alpn_selected'
+4. 编译 curl
+    - libcurl.so: undefined reference to `SSL_get0_alpn_selected'
 
         在 thirdparty/build-thirdparty.sh 中确认没有注释掉 build_openssl。
 
@@ -166,7 +175,7 @@ JDK：
 
         `sh build-thirdparty.sh`
 
-4.  编译 XXXX
+5. 编译 XXXX
     - [bits/c++config.h] 或 [cstdef] 找不到
 
         在 be/CMakeLists.txt 中修改对应的 CLANG_BASE_FLAGS 中设置的 include 路径。
