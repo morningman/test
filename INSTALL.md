@@ -194,16 +194,16 @@ JDK：
 
         打开 cstddef 文件，修改如下片段：
 
-            `namespace std
+            namespace std
             {
             // We handle size_t, ptrdiff_t, and nullptr_t in c++config.h.
             +#ifndef __clang__
             using ::max_align_t;
             +#endif
             }
-            #endif `
+            #endif
 
-        > 参考：
+        > 参考：http://clang-developers.42468.n3.nabble.com/another-try-lastest-ubuntu-14-10-gcc4-9-1-can-t-build-clang-td4043875.html
 
     - /bin/bash^M: bad interpreter: No such file or directory
 
