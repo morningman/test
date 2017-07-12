@@ -1,6 +1,6 @@
-# XXXX 编译及部署
+# Palo 编译及部署
 
-## XXXX 编译
+## Palo 编译
 本文档基于以下 Linux 发行版本进行说明：
 
     Ubuntu 16.04.2 (64bit)
@@ -12,7 +12,7 @@
 
 **build.sh**
 
-XXXX 源码编译的入口脚本。
+Palo 源码编译的入口脚本。
 
 第三方依赖库的编译脚本放在 thirdparty 下。
 
@@ -60,7 +60,7 @@ JDK：
 
     Ubuntu:
 
-    `sudo apt-get install g++ ant cmake byacc flex automake libtool binutils-dev libiberty-dev bison`
+    `sudo apt-get install g++ ant cmake zip byacc flex automake libtool binutils-dev libiberty-dev bison`
 
     CentOS:
 
@@ -80,7 +80,7 @@ JDK：
 
     第三方库安装路径：thirdparty/installed
 
-4. 执行 XXXX 编译脚本。
+4. 执行 Palo 编译脚本。
 
     `sh build.sh`
 
@@ -175,7 +175,7 @@ JDK：
 
         `sh build-thirdparty.sh`
 
-5. 编译 XXXX
+5. 编译 Palo
     - [bits/c++config.h] 或 [cstdef] 找不到
 
         在 be/CMakeLists.txt 中修改对应的 CLANG_BASE_FLAGS 中设置的 include 路径。
@@ -185,6 +185,26 @@ JDK：
         `locate c++config.h`
 
         确认头文件的地址。
+
+    - cstddef: no member named 'max_align_t' in the global namespace
+
+        在 Ubuntu 16.04 环境下可能会遇到此问题。
+
+        首先通过 `locate cstddef` 定位到系统的 cstddef 文件位置。
+
+        打开 cstddef 文件，修改如下片段：
+
+        `namespace std 
+        { 
+        // We handle size_t, ptrdiff_t, and nullptr_t in c++config.h. 
+        +#ifndef __clang__ 
+        using ::max_align_t; 
+        +#endif 
+        } 
+        #endif `
+        
+
+        > 参考：
 
     - /bin/bash^M: bad interpreter: No such file or directory
 
@@ -208,7 +228,7 @@ Broker 用于从其他数据源（如 HDFS、BAIDU BOS）导入数据。
 
 ## 部署
 
-XXXX 主进程包括 Frontend（FE）和 Backend（BE）。
+Palo 主进程包括 Frontend（FE）和 Backend（BE）。
 
 FE 主要负责以下工作：
 
@@ -224,7 +244,7 @@ BE 主要负责以下工作：
 
 ### 单机部署
 
-通过在一台机器上搭建仅包含一个 FE 和一个 BE 的 XXXX，快速熟悉和使用 XXXX。
+通过在一台机器上搭建仅包含一个 FE 和一个 BE 的 Palo，快速熟悉和使用 Palo。
 
 1. 准备部署环境
 
@@ -236,7 +256,7 @@ BE 主要负责以下工作：
 
         `JAVA_HOME`：绝对路径，指向 jdk 所在位置（请使用与编译时相同版本的 JDK ）。
 
-        `meta_dir`：元数据存放位置。默认在 fe/XXXX-meta/ 下。需**手动创建**该目录。
+        `meta_dir`：元数据存放位置。默认在 fe/Palo-meta/ 下。需**手动创建**该目录。
 
    2. 启动 FE
 
@@ -286,7 +306,7 @@ BE 主要负责以下工作：
 
 ### 分布式部署
 
-XXXX 支持 FE 节点的高可用，以及 BE 节点的横向扩展。在单机部署之上，可以通过在其他节点添加更多的 FE 或 BE，以提高 XXXX 的可用性和性能。
+Palo 支持 FE 节点的高可用，以及 BE 节点的横向扩展。在单机部署之上，可以通过在其他节点添加更多的 FE 或 BE，以提高 Palo 的可用性和性能。
 
 1. FE 高可用及扩展。
 
@@ -344,7 +364,7 @@ XXXX 支持 FE 节点的高可用，以及 BE 节点的横向扩展。在单机�
 
 ### Broker 部署
 
-Broker 以插件的形式，独立于 XXXX 部署。
+Broker 以插件的形式，独立于 Palo 部署。
 
 1. 准备部署环境
 
@@ -370,7 +390,7 @@ Broker 以插件的形式，独立于 XXXX 部署。
 
 5. 多 Broker
 
-    通过部署多个 Broker 可以提高 XXXX 通过 Broker 访问数据的并发度和性能。
+    通过部署多个 Broker 可以提高 Palo 通过 Broker 访问数据的并发度和性能。
 
     首先我们可以在不同节点启动多个 Broker。
 
@@ -379,4 +399,3 @@ Broker 以插件的形式，独立于 XXXX 部署。
     `ALTER SYSTEM ADD BROKER broker_name "host1:port1","host2:port2",...;`
 
     其中 host* 为各个 Broker 所在节点ip；port* 为对应 Broker 的配置文件中的 broker_ipc_port。
-   
