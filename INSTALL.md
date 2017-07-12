@@ -1,6 +1,6 @@
-# Palo 编译及部署
+# XXXX 编译及部署
 
-## Palo 编译
+## XXXX 编译
 本文档基于以下 Linux 发行版本进行说明：
 
     Ubuntu 16.04.2 (64bit)
@@ -12,7 +12,7 @@
 
 **build.sh**
 
-palo 源码编译的入口脚本。
+XXXX 源码编译的入口脚本。
 
 第三方依赖库的编译脚本放在 thirdparty 下。
 
@@ -80,7 +80,7 @@ JDK：
 
     第三方库安装路径：thirdparty/installed
 
-4. 执行 palo 编译脚本。
+4. 执行 XXXX 编译脚本。
 
     `sh build.sh`
 
@@ -166,7 +166,7 @@ JDK：
 
         `sh build-thirdparty.sh`
 
-4.  编译 palo
+4.  编译 XXXX
     - [bits/c++config.h] 或 [cstdef] 找不到
 
         在 be/CMakeLists.txt 中修改对应的 CLANG_BASE_FLAGS 中设置的 include 路径。
@@ -199,7 +199,7 @@ Broker 用于从其他数据源（如 HDFS、BAIDU BOS）导入数据。
 
 ## 部署
 
-Palo 主进程包括 Frontend（FE）和 Backend（BE）。
+XXXX 主进程包括 Frontend（FE）和 Backend（BE）。
 
 FE 主要负责以下工作：
 
@@ -227,7 +227,7 @@ BE 主要负责以下工作：
 
         `JAVA_HOME`：绝对路径，指向 jdk 所在位置（请使用与编译时相同版本的 JDK ）。
 
-        `meta_dir`：元数据存放位置。默认在 fe/palo-meta/ 下。需**手动创建**该目录。
+        `meta_dir`：元数据存放位置。默认在 fe/XXXX-meta/ 下。需**手动创建**该目录。
 
    2. 启动 FE
 
@@ -277,7 +277,7 @@ BE 主要负责以下工作：
 
 ### 分布式部署
 
-Palo 支持 FE 节点的高可用，以及 BE 节点的横向扩展。在单机部署之上，可以通过在其他节点添加更多的 FE 或 BE，以提高 Palo 的可用性和性能。
+XXXX 支持 FE 节点的高可用，以及 BE 节点的横向扩展。在单机部署之上，可以通过在其他节点添加更多的 FE 或 BE，以提高 XXXX 的可用性和性能。
 
 1. FE 高可用及扩展。
 
@@ -335,7 +335,7 @@ Palo 支持 FE 节点的高可用，以及 BE 节点的横向扩展。在单机�
 
 ### Broker 部署
 
-Broker 以插件的形式，独立于 Palo 部署。
+Broker 以插件的形式，独立于 XXXX 部署。
 
 1. 准备部署环境
 
@@ -361,7 +361,7 @@ Broker 以插件的形式，独立于 Palo 部署。
 
 5. 多 Broker
 
-    通过部署多个 Broker 可以提高 Palo 通过 Broker 访问数据的并发度和性能。
+    通过部署多个 Broker 可以提高 XXXX 通过 Broker 访问数据的并发度和性能。
 
     首先我们可以在不同节点启动多个 Broker。
 
