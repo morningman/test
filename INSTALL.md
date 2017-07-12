@@ -194,22 +194,14 @@ JDK：
 
         打开 cstddef 文件，修改如下片段：
 
-        `namespace std 
-        
-        { 
-        
-        // We handle size_t, ptrdiff_t, and nullptr_t in c++config.h. 
-        
-        +#ifndef __clang__ 
-        
-        using ::max_align_t; 
-        
-        +#endif 
-        
-        } 
-        
+        `namespace std  
+        {  
+        // We handle size_t, ptrdiff_t, and nullptr_t in c++config.h.  
+        +#ifndef __clang__  
+        using ::max_align_t;  
+        +#endif  
+        }  
         #endif `
-        
 
         > 参考：
 
