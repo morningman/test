@@ -1,27 +1,26 @@
-# Palo安装文档
+# Palo 安装文档
 
-本文档会介绍Palo的系统依赖，编译，部署和常见问题解决。
+本文档会介绍 Palo 的系统依赖，编译，部署和常见问题解决。
 
 ## 1. 系统依赖
 
-Palo当前只能运行在Linux系统上，无论是编译还是部署，都建议确保系统安装了如下软件或者库：
+Palo 当前只能运行在 Linux 系统上，无论是编译还是部署，都建议确保系统安装了如下软件或者库：
 
-* GCC 4.8.2+，Oracle JDK 1.7+，Python 2.7+，确认gcc, java, python命令指向正确版本, 设置JAVA_HOME环境变量
+* GCC 4.8.2+，Oracle JDK 1.7+，Python 2.7+，确认 gcc, java, python 命令指向正确版本, 设置JAVA_HOME环境变量
 
-* Ubuntu需要安装：`sudo apt-get install g++ ant cmake zip byacc flex automake libtool binutils-dev libiberty-dev bison`;  安转完成后，需要执行`sudo updatedb`
+* Ubuntu需要安装：`sudo apt-get install g++ ant cmake zip byacc flex automake libtool binutils-dev libiberty-dev bison`；安转完成后，需要执行 `sudo updatedb`。
 
-* CentOS需要安装: `sudo yum install ant cmake byacc flex automake libtool binutils-devel bison`; 安装完成后，需要执行`sudo updatedb`
+* CentOS需要安装：`sudo yum install ant cmake byacc flex automake libtool binutils-devel bison`；安装完成后，需要执行 `sudo updatedb`。
 
 ## 2. 编译
 
 默认提供了 Ubuntu 16.04, Centos 7.1 环境的预编译版本，可以直接下载使用。如果预编译版本有问题，或者是其它系统，建议按照下面步骤进行源码编译。
 
 ### 2.1 编译第三方依赖库
-``
-sh thirdparty/build-thirdparty.sh
-``
 
-_注意:build-thirdparty.sh 依赖thirdparty目录下的其它两个脚本，其中vars.sh定义了一些编译第三方库时依赖的环境变量，download-thirdparty.sh负责完成对依赖源码包的下载。_
+`sh thirdparty/build-thirdparty.sh`
+
+_注意：build-thirdparty.sh 依赖 thirdparty 目录下的其它两个脚本，其中 `vars.sh` 定义了一些编译第三方库时依赖的环境变量；`download-thirdparty.sh` 负责完成对依赖源码包的下载。_
 
 ### 2.2 编译 Palo FE 和 BE
 
@@ -29,7 +28,8 @@ _注意:build-thirdparty.sh 依赖thirdparty目录下的其它两个脚本，其
 
 ### 2.3 (可选) 编译 FS_Broker
 
-FS_Broker 用于从其他数据源（如Hadoop HDFS、百度云BOS）导入数据时使用，如果不需要从这两个数据源导入数据可以先不编译和部署。需要的时候，可以后面再编译和部署。
+FS_Broker 用于从其他数据源（如Hadoop HDFS、百度云 BOS）导入数据时使用，如果不需要从这两个数据源导入数据可以先不编译和部署。需要的时候，可以后面再编译和部署。
+
 需要哪个 broker，就进入 fs_brokers/ 下对应的 broker 的目录，执行 `sh build.sh` 即可，执行完毕后，产生的部署文件生成在对应 broker 的 output 目录下。
 
 ## 3. 部署
