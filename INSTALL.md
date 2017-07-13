@@ -20,7 +20,7 @@ Palo 当前只能运行在 Linux 系统上，无论是编译还是部署，都�
 
 `sh thirdparty/build-thirdparty.sh`
 
-_注意：build-thirdparty.sh 依赖 thirdparty 目录下的其它两个脚本，其中 `vars.sh` 定义了一些编译第三方库时依赖的环境变量；`download-thirdparty.sh` 负责完成对依赖源码包的下载。_
+_注意：`build-thirdparty.sh` 依赖 thirdparty 目录下的其它两个脚本，其中 `vars.sh` 定义了一些编译第三方库时依赖的环境变量；`download-thirdparty.sh` 负责完成对依赖源码包的下载。_
 
 ### 2.2 编译 Palo FE 和 BE
 
@@ -92,9 +92,9 @@ Palo 主要包括 Frontend（FE）和 Backend（BE）两个进程。其中 FE �
 
 ### 3.3 （可选）FS_Broker 部署
 
-broker 以插件的形式，独立于 Palo 部署。如果需要从第三方存储系统导入数据，需要部署相应的 broker，默认提供了读取HDFS 和百度云 BOS 的 fs_broker。fs_broker 是无状态的，建议每一个 fe 和 be 节点都部署一个 broker。
+broker 以插件的形式，独立于 Palo 部署。如果需要从第三方存储系统导入数据，需要部署相应的 broker，默认提供了读取HDFS 和百度云 BOS 的 fs_broker。fs_broker 是无状态的，建议每一个 FE 和 BE 节点都部署一个 broker。
 
-* 拷贝源码 fs_broker 的 output 目录下的相应 broker 目录到需要部署的所有节点上。建议和 be或者 fe 目录保持同级。
+* 拷贝源码 fs_broker 的 output 目录下的相应 broker 目录到需要部署的所有节点上。建议和 BE 或者 FE 目录保持同级。
 
 * 修改相应broker配置
 
