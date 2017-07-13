@@ -195,24 +195,24 @@ broker 以插件的形式，独立于 Palo 部署。如果需要从第三方存�
 
 ## 5. FE 高可用
 
-    FE 分为 leader，follower 和 observer 三种角色。 默认一个集群，只能有一个 leader，可以有多个 follower 和 observer。其中 leader 和 follower 组成一个 Paxos 选择组，如果 leader 宕机，则剩下的 follower 会自动选出新的 leader，保证写入高可用。observer 同步 leader 的数据，但是不参加选举。如果只部署一个 FE，则 FE默认就是 leader。
+FE 分为 leader，follower 和 observer 三种角色。 默认一个集群，只能有一个 leader，可以有多个 follower 和 observer。其中 leader 和 follower 组成一个 Paxos 选择组，如果 leader 宕机，则剩下的 follower 会自动选出新的 leader，保证写入高可用。observer 同步 leader 的数据，但是不参加选举。如果只部署一个 FE，则 FE默认就是 leader。
     
-    第一个启动的 FE 自动成为 leader。在此基础上，可以添加若干 follower 和 observer。
+第一个启动的 FE 自动成为 leader。在此基础上，可以添加若干 follower 和 observer。
     
-    添加 follower 或 observer。使用 mysql-client 连接到已启动的 FE，并执行：
+添加 follower 或 observer。使用 mysql-client 连接到已启动的 FE，并执行：
 
-    `ALTER SYSTEM ADD FOLLOWER "host:port";`
+`ALTER SYSTEM ADD FOLLOWER "host:port";`
 
-    或
+或
 
-    `ALTER SYSTEM ADD OBSERVER "host:port";` 
+`ALTER SYSTEM ADD OBSERVER "host:port";` 
 
-    其中 host 为 follower 或 observer 所在节点 ip；port 为其配置文件fe.conf中的 edit_log_port。
+其中 host 为 follower 或 observer 所在节点 ip；port 为其配置文件fe.conf中的 edit_log_port。
     
-    配置及启动 follower 或 observer。follower 和 observer 的配置同 leader 的配置。第一次启动时，需执行以下命令：
+配置及启动 follower 或 observer。follower 和 observer 的配置同 leader 的配置。第一次启动时，需执行以下命令：
 
-    `sh bin/start_fe.sh -helper host:port`
+`sh bin/start_fe.sh -helper host:port`
 
-    其中host为 Leader 所在节点 ip；port 为 Leader 的配置文件 fe.conf 中的 edit_log_port。-helper 参数仅在 follower 和 observer 第一次启动时才需要。
+其中host为 Leader 所在节点 ip；port 为 Leader 的配置文件 fe.conf 中的 edit_log_port。-helper 参数仅在 follower 和 observer 第一次启动时才需要。
     
-    查看 Follower 或 Observer 运行状态。使用 mysql-client 连接到任一已启动的 FE，并执行：SHOW PROC '/frontend'; 可以查看当前已加入集群的 FE 及其对应角色。
+查看 Follower 或 Observer 运行状态。使用 mysql-client 连接到任一已启动的 FE，并执行：SHOW PROC '/frontend'; 可以查看当前已加入集群的 FE 及其对应角色。
